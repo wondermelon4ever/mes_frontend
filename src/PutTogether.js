@@ -16,13 +16,15 @@ class PutTogether extends React.Component {
   }
 
   changeTheme(themeName) {
-    this.state.themes.forEach(theme=>{
+    for(var i = 0; i < this.state.themes.length; i++) {
+      const theme = this.state.themes[i];
       if(theme.themeName === themeName) {
         this.setState({
           curTheme: theme
         });
+        break;
       }
-    });
+    }
   }
 
   render() {
