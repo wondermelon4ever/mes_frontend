@@ -4,7 +4,7 @@ import Pane from 'react-split-pane';
 import SplitPane from 'react-split-pane';
 import { ThemeProvider } from '@mui/material/styles';
 
-import Body from './Body';
+import Body from './Body_bak';
 import Footer from './Footer';
 import Header from './Header';
 
