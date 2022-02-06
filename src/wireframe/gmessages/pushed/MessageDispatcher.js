@@ -7,11 +7,30 @@ var callbackMap = new Map();
 var callbackCountMap = new Map();
 
 const addMessageCallback = (mcode, callback) => {
+    var callbacks = callbackMap.get(mcode);
+    if(callbacks === undefined || callbacks === null) {
+        callbacks = new Map();
+    }
+    var uuid = uuid4v();
+    callbacks.set(uuid, callback);
+    callbackMap.set(mcode, callbacks);
 
+    var count = callbackCountMap.get(mcode);
+    if(count === undefined | count === null) count = 0;
+    count++;
+    callbackCountMap.set(mcode, count);
+
+    return uuid;
 }
 
 const removeMessageCallback = (mcode, callbackId) => {
+    var callbacks = callbackMap.get(mcode);
+    if(callbacks === undefined || callbacks === null) return;
 
+    callbacks.delete(callbackId);
+    var count = callbackCountMap.get(mcode);
+    count--;
+    callbackCountMap.set(mcode, count);
 }
 
 const sendMessageToServer = (message) => {
@@ -55,8 +74,14 @@ export default class MessageDispatcher extends React.Component {
         client.current.sendMessage(message);
     }
 
-    dispatchMessage = (event) => {
-        
+    dispatchMessage = (message) => {
+        var callbacks = callbackMap.get(message.mcode);
+        if(callbacks === undefined) return;
+
+        callbacks.forEach((callback, key, map)=>{
+            callback(message);
+            console.log("### Message processed (" + JSON.stringify(message)+ ")");
+        });
     }
     
     render() {
