@@ -1,6 +1,6 @@
 import React from 'react';
-import UIComposer from './components/wireframe/UIComposer';
-import themeList from './themes/ThemeList';
+import UIComposer from './wireframe/UIComposer';
+import themeList from './themes';
 
 class PutTogether extends React.Component {
 
@@ -9,7 +9,7 @@ class PutTogether extends React.Component {
     
     this.state = {
         themes: themeList,
-        curTheme: themeList[0]
+        curThemeInfo: themeList[0]
     }
 
     this.changeTheme = this.changeTheme.bind(this);
@@ -20,7 +20,7 @@ class PutTogether extends React.Component {
       const theme = this.state.themes[i];
       if(theme.themeName === themeName) {
         this.setState({
-          curTheme: theme
+          curThemeInfo: theme
         });
         break;
       }
@@ -31,7 +31,7 @@ class PutTogether extends React.Component {
     return(
       <UIComposer 
         themes={this.state.themes} 
-        curTheme={ this.state.curTheme } 
+        curThemeInfo={ this.state.curThemeInfo } 
         changeTheme={ this.changeTheme }
       />
     );

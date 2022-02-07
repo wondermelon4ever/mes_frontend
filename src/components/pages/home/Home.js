@@ -1,17 +1,14 @@
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
+// import { useParam } from 'react-router-dom';
 
 import { addRouteBySingle } from 'src/wireframe/route/BodyRouter';
-
-var aroute = {
-
-}
-
-addRouteBySingle(aroute);
 
 const Home = (props) => {
 
     const theme = useTheme();
+    // URL params 읽는 법 (match  객체)
+    // const { param } = useParam();
 
     const handleThemeChange = (event) => {
         props.changeTheme(event.target.value);

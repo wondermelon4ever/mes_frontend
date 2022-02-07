@@ -9,16 +9,11 @@ import Footer from './Footer';
 import Header from './Header';
 
 const UIComposer = (props) => {
-    const [curTheme, setCurTheme] = useState(props.curTheme);
-
-    useEffect(() => {
-        setCurTheme(props.curTheme);
-    }, [props.curTheme]);
-
+    
     return (
         <div>
             <BrowserRouter>
-                <ThemeProvider theme={ curTheme.theme }>
+                <ThemeProvider theme={ props.curThemeInfo.theme }>
                     <SplitPane split="horizontal" allowResize={true}>
                         <Pane size="60px"  minSize="0px" maxSize="60px">
                             <Header { ...props } />

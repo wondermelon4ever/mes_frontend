@@ -43,6 +43,7 @@
     "react-router-dom": "^6.2.1",
     "react-split-pane": "^2.0.3",
     "react-stomp": "^5.1.0",
+    "three": "^0.137.5",
     "uuid": "^8.3.2"
   }
 }
