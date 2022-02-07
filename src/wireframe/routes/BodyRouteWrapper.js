@@ -7,7 +7,6 @@ import BodyLayout3 from './layouts/BodyLayout3';
 const BodyRouteWrapper = (props) => {
     
     const presenter = props.presenter;
-    console.log("path=====>" + props.key);
     let layout = undefined;
     switch(props.layout) {
         case "layout-1":

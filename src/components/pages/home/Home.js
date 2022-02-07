@@ -2,8 +2,6 @@ import React from 'react';
 import { useTheme } from '@mui/material/styles';
 // import { useParam } from 'react-router-dom';
 
-import { addRouteBySingle } from 'src/wireframe/route/BodyRouter';
-
 const Home = (props) => {
 
     const theme = useTheme();
