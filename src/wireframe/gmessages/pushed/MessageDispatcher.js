@@ -98,7 +98,6 @@ export default class MessageDispatcher extends React.Component {
     }
 }
 
-export default MessageDispatcher;
 export {
     addMessageCallback,
     removeMessageCallback,

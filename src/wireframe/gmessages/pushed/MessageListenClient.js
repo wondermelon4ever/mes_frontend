@@ -1,4 +1,4 @@
-import { useImperativeHandle, useState } from 'react';
+import React, { useImperativeHandle, useState } from 'react';
 import SockJsClient from 'react-stomp';
 
 const MessageListenClient = React.forwardRef((props, ref) => {
@@ -14,7 +14,7 @@ const MessageListenClient = React.forwardRef((props, ref) => {
     const [clientConnected, setClientConnected] = useState(false);
 
     useImperativeHandle(ref, () => {
-        return {
+        return (
             sendMessage = (topics, message) => {
                 if(clientConnected === true) {
                     client.sendMessage(topics, message);
@@ -22,7 +22,7 @@ const MessageListenClient = React.forwardRef((props, ref) => {
                     console.log("");
                 }
             }
-        }
+        )
     });
 
     return (

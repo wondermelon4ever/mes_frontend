@@ -9,6 +9,7 @@ import Footer from './Footer';
 import Header from './Header';
 
 const UIComposer = (props) => {
+    // TO-DO: size, allowResize, min, max => theme를 반영해야 함
     
     return (
         <div>

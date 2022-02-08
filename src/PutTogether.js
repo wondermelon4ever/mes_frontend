@@ -30,7 +30,7 @@ class PutTogether extends React.Component {
   render() {
     return(
       <UIComposer 
-        themes={this.state.themes} 
+        themes={ this.state.themes } 
         curThemeInfo={ this.state.curThemeInfo } 
         changeTheme={ this.changeTheme }
       />

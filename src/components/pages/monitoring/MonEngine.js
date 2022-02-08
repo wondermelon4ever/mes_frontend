@@ -1,48 +1,57 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import * as THREE from 'three';
 
-class MonEngine extends React.Component {
+class MonEngine {
 
     constructor(props) {
-        super(props);
 
-        this.state = {
-            json: props.json,
-            name: props.name,
-            style: props.style,
+        this.name = props.name;
+        this.json = props.json;
+        this.style= props.style;
 
-            renderer: new THREE.WebGL1Renderer( { antialias: true, preserveDrawingBuffer: true }),
-            floader: new THREE.FileLoader(),
-            oloader: new THREE.ObjectLoader(),
-            raycaster: new THREE.Raycaster(),
-            mouse: new THREE.Vector3()
+        this.dom = props.parent;
+        this.renderer = new THREE.WebGL1Renderer( { antialias: true, preserveDrawingBuffer: true });
+        this.floader = new THREE.FileLoader();
+        this.oloader = new THREE.ObjectLoader();
+        this.raycaster = new THREE.Raycaster();
+        this.mouse = new THREE.Vector3();
+
+        this.screenFixed = false, this.turnOnTooltip = true;
+        this.mouseX = 0, this.mouseY = 0;
+
+        this.events = {
+            click: [], dbclick: [], rightclick: [],
+            keydown: [], keyup: [],
+            mousedown: [], mouseup: [], mousemove: [], mouseover: [], mouseout: [], mousewheel: [],
+            touchstart: [], touchend: [], touchmove: [],
+            init: [], start: [], stop: [], resize: [],
+            update: []
         }
 
-        this.addEventCallback = this.addEventCallback.bind(this);
-        this.addObject = this.addObject.bind(this);
-        this.addPreset = this.addPreset.bind(this);
-        this.blinkObject = this.blinkObject.bind(this);
-        this.captureScreenShot = this.captureScreenShot.bind(this);
-        this.changeColor = this.changeColor.bind(this);
-        this.fixScreen = this.fixScreen.bind(this);
-        this.getPresets = this.getPresets.bind(this);
-        this.hideAllObjects = this.hideAllObjects.bind(this);
-        this.hideObject = this.hideObject.bind(this);
-        this.init = this.init.bind(this);
-        this.load = this.load.bind(this);
-        this.magnify = this.magnify.bind(this);
-        this.move = this.move.bind(this);
-        this.preset = this.preset.bind(this);
-        this.showAllObjects = this.showAllObjects.bind(this);
-        this.start = this.start.bind(this);
-        this.startAnimation = this.startAnimation.bind(this);
-        this.stop = this.stop.bind(this);
-        this.stopAnimation = this.stopAnimation.bind(this);
-        this.updateUserData = this.updateUserData.bind(this);
-    }
+        this.init();
 
-    componentDidMound(props) {
-        this.init(props.json, props.style);
+        // this.addEventCallback = this.addEventCallback.bind(this);
+        // this.addObject = this.addObject.bind(this);
+        // this.addPreset = this.addPreset.bind(this);
+        // this.blinkObject = this.blinkObject.bind(this);
+        // this.captureScreenShot = this.captureScreenShot.bind(this);
+        // this.changeColor = this.changeColor.bind(this);
+        // this.fixScreen = this.fixScreen.bind(this);
+        // this.getPresets = this.getPresets.bind(this);
+        // this.hideAllObjects = this.hideAllObjects.bind(this);
+        // this.hideObject = this.hideObject.bind(this);
+        // this.init = this.init.bind(this);
+        // this.load = this.load.bind(this);
+        // this.magnify = this.magnify.bind(this);
+        // this.move = this.move.bind(this);
+        // this.preset = this.preset.bind(this);
+        // this.showAllObjects = this.showAllObjects.bind(this);
+        // this.start = this.start.bind(this);
+        // this.startAnimation = this.startAnimation.bind(this);
+        // this.stop = this.stop.bind(this);
+        // this.stopAnimation = this.stopAnimation.bind(this);
+        // this.updateUserData = this.updateUserData.bind(this);
     }
 
     addEventCallback = (ename, callback) => {
@@ -54,6 +63,14 @@ class MonEngine extends React.Component {
     }
 
     addPreset = (name) => {
+
+    }
+
+    applyParent = (parentDom) => {
+        this.dom = parentDom;
+    }
+
+    applyStyle = (style) => {
 
     }
 
@@ -86,11 +103,11 @@ class MonEngine extends React.Component {
 
     }
 
-    init = (json, style) => {
+    init = () => {
 
     }
 
-    load = () => {
+    load = (json, width, height, backgroundColor = 0xffffff) => {
 
     }
 
@@ -103,6 +120,10 @@ class MonEngine extends React.Component {
     }
 
     preset = (name) => {
+
+    }
+
+    setScreenSize = (width, height) => {
 
     }
 
@@ -128,12 +149,6 @@ class MonEngine extends React.Component {
 
     updateUserData = (objName, userData) => {
 
-    }
-
-    render() {
-        return (
-            <div />
-        );
     }
 }
 
