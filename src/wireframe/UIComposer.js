@@ -10,16 +10,16 @@ import Header from './Header';
 
 const UIComposer = (props) => {
     // TO-DO: size, allowResize, min, max => theme를 반영해야 함
-    
+    const headerHeight=60, footerHeight=40;
     return (
-        <div>
+        <div style={{ height: props.curThemeInfo.bodyHeight, width: "1200px"}}>
             <BrowserRouter>
                 <ThemeProvider theme={ props.curThemeInfo.theme }>
                     <SplitPane split="horizontal" allowResize={true}>
                         <Pane size="60px"  minSize="0px" maxSize="60px">
                             <Header { ...props } />
                         </Pane>
-                        <Pane size="650px" minSize="500px" maxSize="900px">
+                        <Pane size={ "600px" } minSize="500px" maxSize="900px">
                            <Body { ...props  }/>
                         </Pane>
                         <Pane size="40px" minSize="0px" maxSize="100px">

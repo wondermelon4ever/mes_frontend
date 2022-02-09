@@ -11,7 +11,7 @@ const addMessageCallback = (mcode, callback) => {
     if(callbacks === undefined || callbacks === null) {
         callbacks = new Map();
     }
-    var uuid = uuid4v();
+    var uuid = uuidv4();
     callbacks.set(uuid, callback);
     callbackMap.set(mcode, callbacks);
 

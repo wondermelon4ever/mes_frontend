@@ -13,12 +13,18 @@ const configureRoutes = (props) => {
         "key": "/",
         "presenter": <Home { ...props } />,
         "layout": "layout-1"
-    }
+    };
+
+    const size = {
+        "width": "500",
+        "height": "500"
+    };
+
     var monitor = {
         "key": "/monitoring",
-        "presenter": <Monitor { ...props } />,
+        "presenter": <Monitor json="app3.json" size={ size } { ...props } />,
         "layout": "layout-1"
-    }
+    };
     
     routeList.push(home);
     routeList.push(monitor);
