@@ -12,7 +12,7 @@ const UIComposer = (props) => {
     // TO-DO: size, allowResize, min, max => theme를 반영해야 함
     const headerHeight=60, footerHeight=40;
     return (
-        <div style={{ height: props.curThemeInfo.bodyHeight, width: "1200px"}}>
+        <div style={{ height: "100%", width: "100%"}}>
             <BrowserRouter>
                 <ThemeProvider theme={ props.curThemeInfo.theme }>
                     <SplitPane split="horizontal" allowResize={true}>

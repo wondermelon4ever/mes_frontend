@@ -44,6 +44,8 @@
     "react-split-pane": "^2.0.3",
     "react-stomp": "^5.1.0",
     "three": "^0.137.5",
+    "three-obj-loader": "^1.1.3",
+    "tui-context-menu": "^2.1.9",
     "uuid": "^8.3.2"
   }
 }

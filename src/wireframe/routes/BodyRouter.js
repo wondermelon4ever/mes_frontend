@@ -16,7 +16,7 @@ class BodyRouter extends React.Component {
     render () {
         return (
             // TO-DO: div style의 theme 반영 필요
-            <div style={{ height: '100%' }}>
+            <div style={{ height: '100%', width: "100%" }}>
                 <Routes>
                     {
                         this.state.presenterMap.map((route)=>{
