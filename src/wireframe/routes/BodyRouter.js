@@ -23,7 +23,7 @@ class BodyRouter extends React.Component {
                             return <Route
                                         key={ route.key }
                                         path={ route.key }
-                                        element={ <BodyRouteWrapper path={ route.key } presenter={ route.presenter } layout={ route.layout } /> }
+                                        element={ <BodyRouteWrapper path={ route.key } presenter={ route.presenter } layout={ route.layout } { ...this.props }/> }
                                         { ...this.props }
                                     />
                         })

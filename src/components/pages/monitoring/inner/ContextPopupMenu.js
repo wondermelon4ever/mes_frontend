@@ -22,7 +22,7 @@ class ContextPopupMenu {
 }
 
 // popup menu: find, view (tooltip, menubar), presets
-const makePopupMenu = (objName, targetName, handlePopupClick) => {
+const makePopupMenu = (objName, sourceName, targetName, handlePopupClick) => {
     var items = [];
     items.push({
         title: 'Trace',
@@ -68,7 +68,7 @@ const makePopupMenu = (objName, targetName, handlePopupClick) => {
     items.push({title: 'Close', command: "close" });
 
     var popmenu = new ContextPopupMenu();
-    popmenu.register("popupmenu", targetName, (e, cmd) => { handlePopupClick(e, cmd, objName); }, items);
+    popmenu.register(sourceName, targetName, (e, cmd) => { handlePopupClick(e, cmd, objName); }, items);
     return popmenu;
 }
 

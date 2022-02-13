@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { useTheme } from '@mui/material/styles';
 import { v4 as uuidv4 } from 'uuid';
 
 import  { addMessageCallback, removeMessageCallback } from '../../../wireframe/gmessages/pushed'
 import MonEngine,{ Eventkind } from './engine/MonEngine';
-import makePopupMenu from './menu/ContextPopupMenu';
+import makePopupMenu from './inner/ContextPopupMenu';
+import MonitorMenu, { onSettings } from './inner/MonitorMenu';
 
-class Monitor extends React.Component {
+class Monitor extends React.Component { 
 
     constructor(props) {
         super(props);
@@ -29,11 +31,22 @@ class Monitor extends React.Component {
         this.makeTooltipContents = this.makeTooltipContents.bind(this);
         this.showContextPopupMenu = this.showContextPopupMenu.bind(this);
         this.showMenu = this.showMenu.bind(this);
+        this.onContextMenuClicked = this.onContextMenuClicked.bind(this);
+        this.removeContextMenu = this.removeContextMenu.bind(this);
+        this.onSettingChanged = this.onSettingChanged.bind(this);
+
+        document.addEventListener("contextmenu", e => {
+            var monroot = document.getElementById("monroot");
+            var rect = monroot.getBoundingClientRect();
+            if(e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) {
+                this.removeContextMenu();
+            }
+        });
     }
 
     componentDidMount() {
         console.log("Monitor component is mounted.")
-        if(this.state.engine === undefined) {
+        if(this.state.engine === undefined || this.state.engine === null) {
             const params = {};
             params.name = this.props.name;
             params.json = this.props.json;
@@ -56,9 +69,6 @@ class Monitor extends React.Component {
                 engine: mengine
             });
         }
-        // document.addEventListener("contextmenu", (e) => {
-        //     e.preventDefault();
-        // });
     }
 
     componentWillUnmount() {
@@ -85,7 +95,6 @@ class Monitor extends React.Component {
         }
     }
 
-    
     // var notice, noticeDiv, menubar, menubarDiv;
     registerMonEventCallback (mengine) {
         mengine.addEventCallback(Eventkind.stop, (event)=>{
@@ -111,6 +120,7 @@ class Monitor extends React.Component {
             //     position.y = ((event.clientY/1.3 - (rect.top *2)));
             //     engine.showTooltipPopup(position, contents);
             // }
+            this.removeContextMenu();
         });
 
         mengine.addEventCallback(Eventkind.dblclick, (event, objName, userData, objPos, coordinate)=>{
@@ -137,7 +147,7 @@ class Monitor extends React.Component {
             var contents = this.makeTooltipContents(objName, userData);
               var position = { };
             //   engine.hideTooltipPopup();
-              var rect = document.getElementById(this.props.parentName).getBoundingClientRect();
+              var rect = document.getElementById(this.state.uuid).getBoundingClientRect();
               position.x = ((event.clientX/1.3 - (rect.left*2)));
               position.y = ((event.clientY/1.3 - (rect.top *2)));
             //   engine.showTooltipPopup(position, contents);
@@ -147,27 +157,26 @@ class Monitor extends React.Component {
 
     registerInnerViews (mengine) {
         // create menubar, left, right views
-        var popupdiv = document.createElement('div');
-        popupdiv.id = "contextPopupMenuDiv";
-        popupdiv.style.position = "absolute";
-        popupdiv.style.zIndex = "110";
-        popupdiv.style.opacity = 1;
-        // popupdiv.style.width = "1000px";
-        // popupdiv.style.height= "600px"
-        popupdiv.style.top = 0;
-        popupdiv.style.left= 0;
+        // TO-DO: apply theme
+        var menudiv = document.createElement('div');
+        menudiv.id = "menuDiv";
+        // menudiv.style.backgroundColor = "#ffffff";
+        menudiv.style.backgroundColor = this.state.themeInfo.theme.backgroundColor;
+        menudiv.style.display = "block";
+        menudiv.style.position = "absolute";
+        menudiv.style.zIndex = "110";
+        menudiv.style.opacity = 1;
+        menudiv.style.top = 0;
+        menudiv.style.left= 0;
+        mengine.registerInnerDiv("menudiv", menudiv);
 
-        mengine.registerInnerDiv("contextPopupMenuDiv", popupdiv);
-        // var popupdiv = await mengine.createInnerDiv("contextPopupMenuDiv", style);
-        this.setState({
-            contextPopupMenuDiv: popupdiv
-        });
-
-        // console.log("context menu popup div id is " + popupdiv.id);
-
-        // document.addEventListener("contextmenu", (e)=>{
-        //     this.showContextPopupMenu(e, "", {}, {});
-        // });
+        var presets = this.state.engine.getPresets();
+        menubar = <MonitorMenu 
+                    presets= { presets }
+                    changeListener={ this.onSettingChanged }
+                    monEngine={ this.state.engine }
+                  />;
+        ReactDOM.render(menubar, menudiv);
     }
 
     registerPushedMessageCallback () {
@@ -185,18 +194,67 @@ class Monitor extends React.Component {
     }
 
     showContextPopupMenu (event, objName, objPos, coordinate) {
-        var par = this.state.contextPopupMenuDiv;
-        // var par = document.getElementById("temp");
-        if(par.hasChildNodes()) par.removeChild(par.firstChild);
-
+        this.removeContextMenu();
+        var par = document.getElementById("root");
         var menudiv = document.createElement('div');
         menudiv.id = "popupmenu";
         par.appendChild(menudiv);
 
-        makePopupMenu(objName, par.id, (e, cmd, objName)=>{
-            console.log("CMD from context menu::::" + cmd + ", obj name::::" + objName);
-            // on context menu command
+        makePopupMenu(objName, menudiv.id, par.id, (e, cmd, objName)=>{
+            this.onContextMenuClicked(e, cmd, objName);
+            menudiv.remove();
         });
+    }
+
+    onContextMenuClicked(e, cmd, objName) {
+        console.log("CMD from context menu::::" + cmd + ", obj name::::" + objName);
+    }
+
+    onSettingChanged(settings) {
+        console.log("setting Changed =>" + settings.command + ", " + settings.value);
+        var command = settings.command;
+        switch(command) {
+        case "FREEZE_SCREEN":
+            this.state.engine.fixScreen(settings.value);
+            break;
+        case "PRESET_ADD":
+            this.state.engine.addPreset(settings.value);
+            var presets = { kind : "PRESET_LIST", values : this.state.engine.getPresets() };
+            onSettings(presets);
+            break;
+        case "PRESET_GO" :
+            if(settings.value === "Initial") this.state.engine.gotoInitialView();
+            else this.state.engine.preset(settings.value);
+            break;
+        case "PRESET_CLEAR_ALL":
+            this.state.engine.clearPresets();
+            var presets = { kind : "PRESET_LIST", values : this.state.engine.getPresets() };
+            onSettings(presets);
+            break;
+            case "PRESET_CLEAR":
+                this.state.engine.clearPreset(settings.value);
+                var presets = { kind : "PRESET_LIST", values : this.state.engine.getPresets() };
+                onSettings(presets);
+                break;
+        case "CAPTURE" :
+            return this.state.engine.captureSceneShot();
+        case "MAGNIFY_OBJECT":
+            // magnifyFlag = settings.value;
+            break;
+        case "OBJECT_FIND":
+            this.state.engine.blink(settings.value, null, 3000);
+            break;
+        case "TOOLTIP_ENABLE":
+            // tooltipEnable = settings.value;
+            break;
+        default:
+            break;
+        }
+    }
+
+    removeContextMenu() {
+        var menudiv = document.getElementById("popupmenu");
+        if(menudiv !== null && menudiv !== undefined) menudiv.remove();
     }
 
     showMenu () {
@@ -210,9 +268,9 @@ class Monitor extends React.Component {
         return (
             <div>
                 <div style={{ height: 15 }} onClick={ this.showMenu }>{ this.state.menushow ? "숨기기" : "보이기" }</div>
-                <div id="temp" style={{ height: 100, display: this.state.menushow ? "block" : "none" }}>
+                {/* <div id="temp" style={{ height: 100, display: this.state.menushow ? "block" : "none" }}>
                 
-                </div>
+                </div> */}
                 <div id={ this.state.uuid } style={{ width: "100%", height: "100%"}}/>
             </div>
         );

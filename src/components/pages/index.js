@@ -22,7 +22,7 @@ const configureRoutes = (props) => {
 
     var monitor = {
         "key": "/monitoring",
-        "presenter": <Monitor json="model_sevt.json" size={ size } { ...props } />,
+        "presenter": <Monitor json="app3.json" size={ size } { ...props } />,
         "layout": "layout-1"
     };
     

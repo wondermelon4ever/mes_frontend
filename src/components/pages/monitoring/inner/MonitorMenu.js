@@ -8,10 +8,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 require("es6-promise").polyfill();
 
 import CaptureModal from './CaptureModal';
-import MovingHistoryRequestModal from './simulation/MovingHistoryRequestModal';
-import MovementManager from './tools/MovementManager';
-import CoordinateGenerator from './tools/CoordinateGenerator';
-import RequestSender from './RequestSender';
+// import MovingHistoryRequestModal from './simulation/MovingHistoryRequestModal';
+// import MovementManager from './tools/MovementManager';
+// import CoordinateGenerator from './tools/CoordinateGenerator';
+// import RequestSender from './RequestSender';
 
 var messageReceiver;
 
@@ -84,8 +84,9 @@ export default class MenuBar extends Component {
     onMessage(settings) {
         switch(settings.kind) {
         case "PRESET_LIST" :
+            console.log("PRESETS ==>" + JSON.stringify(settings.values));
             this.setState({
-                presets : settings.presets
+                presets : settings.values
             })
             break;
         case "CAPTURE_IMAGE" :
@@ -108,17 +109,16 @@ export default class MenuBar extends Component {
 
     freezeScreen() {
         var checkbox = document.getElementById("freezeCheckbox");
-        if(checkbox.checked == true) checkbox.checked = false;
-        else checkbox.checked = true;
+        checkbox.checked = !checkbox.checked;
         this.state.callback({ "command" : "FREEZE_SCREEN", "value" : checkbox.checked })
     }
 
     addPreset(name) {
-        this.state.callback({"command": "PRESET_ADD", "name": name });
+        this.state.callback({"command": "PRESET_ADD", "value": name });
     }
 
     gotoPreset(name) {
-        this.state.callback({"command": "PRESET_GO", "name": name });
+        this.state.callback({"command": "PRESET_GO", "value": name });
     }
 
     getCurrentState() {
@@ -129,9 +129,13 @@ export default class MenuBar extends Component {
         this.state.callback({"command": "PRESET_CLEAR_ALL"});
     }
 
+    clearPreset(name) {
+        this.state.callback({ "command": "PRESET_CLEAR", "value": name });
+    }
+
     capture() {
         console.log("##### CAPTURE #####");
-        var image = this.state.callback({"command": "CAPTURE"});
+        var image = this.state.callback({ command: "CAPTURE"});
         this.setState({
             showCapturePopup : true,
             captureImage : image
@@ -243,15 +247,15 @@ export default class MenuBar extends Component {
     }
 
     requestVehicleCollision() {
-        console.log("requestVehicleCollision in the MenuBar.js");
-        var rs = new RequestSender();
-        rs.post({}, "/testVehicleCollision");
+        // console.log("requestVehicleCollision in the MenuBar.js");
+        // var rs = new RequestSender();
+        // rs.post({}, "/testVehicleCollision");
     }
 
     requestVehicleMission() {
-        console.log("requestVehicleMission in the MenuBar.js");
-        var rs = new RequestSender();
-        rs.post({}, "/requestVehicleMission");
+        // console.log("requestVehicleMission in the MenuBar.js");
+        // var rs = new RequestSender();
+        // rs.post({}, "/requestVehicleMission");
     }
 
     configure() {
@@ -293,18 +297,26 @@ export default class MenuBar extends Component {
                                 <NavDropdown.Item onClick={ this.magnify }><input type='checkbox' id="magnifyCheckbox"></input>&nbsp;&nbsp;Magnify</NavDropdown.Item>
                                 <NavDropdown.Item onClick={ this.capture }>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Capture</NavDropdown.Item>
                             </NavDropdown>
-                            <NavDropdown title="Preset" id="basic-preset-dropdown">
-                                <NavDropdown title="Go to" id="preset-goto-dropdown" drop="right">
-                                    <NavDropdown.Item onClick={ ()=> { this.gotoPreset("Initial")}}>Initial</NavDropdown.Item>
+                            <NavDropdown title="Preset" id="basic-preset-dropdown" drop="down">
+                                <NavDropdown title="Go to" id="preset-goto-dropdown" menuVariant="dark" drop="end">
+                                    <NavDropdown.Item key={ "init"} onClick={ ()=> { this.gotoPreset("Initial")}}>Initial</NavDropdown.Item>
                                         {
-                                            this.state.presets.map((name, index) => {
+                                            this.state.presets.map( preset => {
                                                 return [
-                                    <NavDropdown.Item key={"preset-"+index} onClick={ ()=> { this.gotoPreset(name)}}>{name}</NavDropdown.Item>
-                                            ]})
+                                    <NavDropdown.Item key={ preset.name } onClick={ ()=> { this.gotoPreset(preset.name)}}>{ preset.name }</NavDropdown.Item>
+                                                ]})
                                         }
                                 </NavDropdown>
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item href="#clearPreset">Clear</NavDropdown.Item>
+                                <NavDropdown title="Clear" id="preset-clear-dropdown" menuVariant="dark" drop="end">
+                                        {
+                                            this.state.presets.map( preset => {
+                                                return [
+                                    <NavDropdown.Item key={ preset.name } onClick={ ()=> { this.clearPreset(preset.name)}}>{ preset.name }</NavDropdown.Item>
+                                                ]})
+                                        }
+                                </NavDropdown>
+                                {/* <NavDropdown.Item href="#clearPreset">Clear</NavDropdown.Item> */}
                                 <NavDropdown.Item onClick={ this.clearAllPreset }>Clear all</NavDropdown.Item>
                             </NavDropdown>
                             <Nav.Link href="#configuration">Configuration</Nav.Link>
