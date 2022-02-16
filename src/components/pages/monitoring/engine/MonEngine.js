@@ -125,6 +125,8 @@ class MonEngine {
 
         this.dom = document.createElement("div");
         this.dom.id = "monroot";
+        this.dom.style.width = "100%";
+        this.dom.style.height= "100%";
 
         this.parent.appendChild(this.dom);
         this.parent.style.position='relative';
@@ -463,7 +465,7 @@ class MonEngine {
         });
     }
 
-    magnify (objName, ratio) {
+    magnify (objName, ratio = 15) {
         var object = this.scene.getObjectByName(objName);
         this.camera.fov = ratio;
         this.camera.up  = new THREE.Vector3(0,0,1);

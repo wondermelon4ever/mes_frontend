@@ -20,7 +20,7 @@ class Monitor extends React.Component {
             uuid: uuidv4(),
             size: props.size,
             menushow: true,
-            magnifyFlag: true,
+            magnifyFlag: false,
             contextPopupMenuDiv: undefined
         }
 
@@ -125,7 +125,7 @@ class Monitor extends React.Component {
 
         mengine.addEventCallback(Eventkind.dblclick, (event, objName, userData, objPos, coordinate)=>{
             console.log("Mouse left buton double clicked !!!");
-            // if(magnifyFlag == false) return;
+            if(this.state.magnifyFlag == false) return;
 
             event.preventDefault();
             this.state.engine.magnify(objName);
@@ -175,6 +175,7 @@ class Monitor extends React.Component {
                     presets= { presets }
                     changeListener={ this.onSettingChanged }
                     monEngine={ this.state.engine }
+                    show={ this.state.menushow }
                   />;
         ReactDOM.render(menubar, menudiv);
     }
@@ -208,6 +209,17 @@ class Monitor extends React.Component {
 
     onContextMenuClicked(e, cmd, objName) {
         console.log("CMD from context menu::::" + cmd + ", obj name::::" + objName);
+        switch(cmd) {
+            case "showMenu" : 
+                var showSetting = { kind : "SHOW", values : !this.state.menushow };
+                onSettings(showSetting);
+                this.setState({
+                    menushow: !this.state.menushow
+                });
+                break;
+            default:
+                break;
+        }
     }
 
     onSettingChanged(settings) {
@@ -238,8 +250,10 @@ class Monitor extends React.Component {
                 break;
         case "CAPTURE" :
             return this.state.engine.captureSceneShot();
-        case "MAGNIFY_OBJECT":
-            // magnifyFlag = settings.value;
+        case "MAGNIFY_ENABLE":
+            this.setState({
+                magnifyFlag: settings.value
+            });
             break;
         case "OBJECT_FIND":
             this.state.engine.blink(settings.value, null, 3000);
@@ -267,10 +281,6 @@ class Monitor extends React.Component {
     render() {
         return (
             <div>
-                <div style={{ height: 15 }} onClick={ this.showMenu }>{ this.state.menushow ? "숨기기" : "보이기" }</div>
-                {/* <div id="temp" style={{ height: 100, display: this.state.menushow ? "block" : "none" }}>
-                
-                </div> */}
                 <div id={ this.state.uuid } style={{ width: "100%", height: "100%"}}/>
             </div>
         );

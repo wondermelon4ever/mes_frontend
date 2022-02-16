@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { saveAs } from 'file-saver';
-import { Button, Navbar, Nav, NavDropdown, Form, FormControl  } from 'react-bootstrap';
+import { Button, Col, Navbar, Nav, NavDropdown, Form, Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 
 // const CircularJSON = require('circular-json');
@@ -37,7 +37,8 @@ export default class MenuBar extends Component {
             width: window.innerWidth,
             showMovingHistoryRequestUI: false,
             movementManager: undefined,
-            coordinateGenShow: false
+            coordinateGenShow: false,
+            show: this.props.show
         }
 
         this.addPreset = this.addPreset.bind(this);
@@ -75,6 +76,10 @@ export default class MenuBar extends Component {
     componentDidMount() {
     }
 
+    componentDidUpdate(prevProps) {
+        console.log("==++++++++=>" + this.state.show);
+    }
+
     onResize() {
         this.setState({
             width: window.innerWidth
@@ -94,6 +99,12 @@ export default class MenuBar extends Component {
                 showCapturePopup : true,
                 captureImage: settings.captureImage,
             });
+            break;
+        case "SHOW":
+            const show = this.state.show;
+            this.setState({
+                show: !show
+            })
             break;
         default:
             break;
@@ -163,7 +174,7 @@ export default class MenuBar extends Component {
         if(checkbox.checked == true) checkbox.checked = false;
         else checkbox.checked = true;
 
-        this.state.callback({ "command" : "MAGNIFY_OBJECT", "value" : checkbox.checked })
+        this.state.callback({ "command" : "MAGNIFY_ENABLE", "value" : checkbox.checked })
     }
 
     findObject(name) {
@@ -268,9 +279,9 @@ export default class MenuBar extends Component {
 
     render()  {
         return(
-            <div style= { { "width" : this.state.width } }>
+            <div style= { { width : this.state.width, display: this.state.show ? "block" : "none" } }>
                 <Navbar bg="light" expand="lg">
-                    <Navbar.Brand href="#home">Monitor</Navbar.Brand>
+                    <Navbar.Brand href="#home">3D Monitor</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
@@ -287,9 +298,6 @@ export default class MenuBar extends Component {
                                 <NavDropdown.Item onClick={ this.hideMovingLineAll }>Hide moving history line all</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item onClick={ this.showGenerateRealworldCoordinate }>Generate coordinate for realworld</NavDropdown.Item>
-                            </NavDropdown>
-                            <NavDropdown title="Initial Data" id="initial-data">
-                                <NavDropdown.Item onClick={ this.getCurrentState }>Get Current Data (From Server)</NavDropdown.Item>
                             </NavDropdown>
                             <NavDropdown title="Screen" id="basic-screen-dropdown">
                                 <NavDropdown.Item onClick={ this.freezeScreen }><input type='checkbox' id="freezeCheckbox"></input>&nbsp;&nbsp;Freeze Screen</NavDropdown.Item>
@@ -316,25 +324,25 @@ export default class MenuBar extends Component {
                                                 ]})
                                         }
                                 </NavDropdown>
-                                {/* <NavDropdown.Item href="#clearPreset">Clear</NavDropdown.Item> */}
                                 <NavDropdown.Item onClick={ this.clearAllPreset }>Clear all</NavDropdown.Item>
                             </NavDropdown>
                             <Nav.Link href="#configuration">Configuration</Nav.Link>
-                            <NavDropdown title="Test" id="basic-preset-dropdown">
-                                <NavDropdown.Item onClick={ this.requestVehicleCollision }>Vehicle Collision Test</NavDropdown.Item>
-                                <NavDropdown.Item onClick={ this.requestVehicleMission }>Request Vehicle Mission</NavDropdown.Item>
-                            </NavDropdown>
                             <Nav.Link href="#help">Help</Nav.Link>
                         </Nav>
-                        <Form inline>
-                            <FormControl type="text" id="presetName" placeholder="type preset name" className="mr-sm-2" />
-                            <Button variant="outline-success" onClick={ ()=>{this.addPreset(document.getElementById("presetName").value)}}>Add Preset</Button>
+                        {/* <Form.Row> */}
+                        {/* <Col> */}
+                        <Form inline="true" style={{ display: "flex"}}>
+                            <Form.Control type="text" id="presetName" placeholder="Type preset name" className="mr-sm-1" />
+                            <Button variant="outline-success" onClick={ ()=>{this.addPreset(document.getElementById("presetName").value)}}>Add</Button>
                         </Form>
+                       
                         &nbsp;&nbsp;
-                        <Form inline>
-                            <FormControl type="text" id="objectNameToBeFound" placeholder="Search" className="mr-sm-2" />
-                            <Button variant="outline-success" onClick={ ()=>{ this.findObject(document.getElementById("objectNameToBeFound").value) }}>Object Search</Button>
+                        <Form inline="true" style={{ display: "flex"}}>
+                            <Form.Control type="text" id="objectNameToBeFound" placeholder="Type object name" className="mr-sm-1" />
+                            <Button variant="outline-success" onClick={ ()=>{ this.findObject(document.getElementById("objectNameToBeFound").value) }}>Search</Button>
                         </Form>
+                        {/* </Col> */}
+                        {/* </Form.Row> */}
                     </Navbar.Collapse>
                 </Navbar>
                 <CaptureModal 

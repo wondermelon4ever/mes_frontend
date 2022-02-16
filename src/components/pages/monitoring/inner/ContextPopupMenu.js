@@ -1,7 +1,9 @@
+import { getAlertTitleUtilityClass } from '@mui/material';
 import ContextMenu from 'tui-context-menu';
 import 'tui-context-menu/dist/tui-context-menu.css';
 
 var contextMenu;
+var menushow = true;
 
 class ContextPopupMenu {
 
@@ -21,16 +23,21 @@ class ContextPopupMenu {
     }
 }
 
+function getHideShow () {
+    var ret = undefined;
+    if(menushow === true) ret = "hide menu";
+    else ret = "show menu"; 
+    menushow = !menushow;
+    return ret;
+}
+
 // popup menu: find, view (tooltip, menubar), presets
 const makePopupMenu = (objName, sourceName, targetName, handlePopupClick) => {
     var items = [];
     items.push({
-        title: 'Trace',
+        title: 'View',
         menu: [
-            {title: 'Show pathes moved', command: 'show.moving.history'},
-            {title: 'Hide trace', command: 'hide.moving.line'},
-            {title: 'Show pathes future', command: 'show.path.future'},
-            {title: 'Clear history', command: 'clear.moving.history'}
+            { title: getHideShow(), command: 'showMenu' },
         ]
     });
     items.push({
