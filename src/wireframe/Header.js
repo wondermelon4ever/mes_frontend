@@ -7,11 +7,6 @@ import DrawerMenu from './menus/DrawerMenu';
 
 export default function Header (props) {
     const theme = useTheme();
-    const [ drawerOpen, setDrawerOpen ] = React.useState(true);
-
-    const toggleDrawer = () => {
-        setDrawerOpen(!drawerOpen);
-    }
 
     return (
         // <div style={{backgroundColor: theme.backgroundColor}}>
@@ -20,8 +15,8 @@ export default function Header (props) {
         //     <Link to="/monitoring">Monitor</Link>
         // </div>
         <div>
-            <HeaderMenu open={ drawerOpen } toggleDrawer={ toggleDrawer }/>
-            <DrawerMenu open={ drawerOpen } toggleDrawer={ toggleDrawer } width={ 350 }/>
+            <HeaderMenu open={ props.drawerOpen } toggleDrawer={ props.toggleDrawer }/>
+            <DrawerMenu open={ props.drawerOpen } toggleDrawer={ props.toggleDrawer } width={ 350 }/>
             {/* <TestDrawer /> */}
         </div>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const modalStyle = {
-    position: 'fixed',
+    position: 'relative',
     top: '0',
     left: '0',
     width:'100%',
@@ -10,13 +10,14 @@ const modalStyle = {
 }
    
 const modalMainStyle = {
-    position: 'fixed',
+    position: 'relative',
     background: 'white',
-    width: '80%',
-    height: 'auto',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%,-50%)'
+    transform: 'scale(50%, 50%) translate(0%, -250px)'
+    // width: '100%',
+    // height: '50%',
+    // top: '500px',
+    // left: '600px',
+    // transform: 'translate(-50%, -50%)'
 }
       
 const displayBlockStyle = {
@@ -47,14 +48,14 @@ class CaptureModal extends React.Component {
     render() {
         return(
             <div style={Object.assign({}, modalStyle, this.props.show ? displayBlockStyle : displayNoneStyle)}>
-                <section style={modalMainStyle}>
-                <div>
-                    <img id="shotImage" src={this.props.captureImage} />
-                </div>
-                </section>
-                <input id="fileNameToSave" type="text" size="20" placeholder="type file name1q  "/><br/>
+                <input id="fileNameToSave" type="text" size="20" placeholder="type file name to save."/><br/>
                 <button onClick={()=>this.state.handleSave(document.getElementById("fileNameToSave").value)}>Save</button>
                 <button onClick={()=>this.state.handleClose()}>Close</button>
+                <section style={modalMainStyle}>
+                    <div>
+                        <img id="shotImage" src={this.props.captureImage} />
+                    </div>
+                </section>
             </div>
         );
     }

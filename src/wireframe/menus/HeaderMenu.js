@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+
 import { styled, alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -183,13 +185,16 @@ const PrimarySearchAppBar = (props) => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6"
-                        noWrap
-                        component="h1"
-                        color="inherit"
-                        sx={{ display: { xs: 'none', sm: 'block' }, glowFlow: 1 }}
-            >
-              Logooooooooo
+             <Typography 
+                variant="h6"
+                noWrap
+                component={RouterLink}
+                to="/"
+                color="white"
+                sx={{ display: { xs: 'none', sm: 'block' }, glowFlow: 1 }}
+                style={{ textDecoration: "none" }}
+              >
+                Logooooooooo
             </Typography>
             <Search>
               <SearchIconWrapper>

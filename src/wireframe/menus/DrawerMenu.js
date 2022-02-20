@@ -7,13 +7,16 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { mainListItems, secondaryListItems } from './DrawerMenuListItems';
 
 var drawerWidth = 240;
 
 const openedMixin = (theme) => ({
     width: drawerWidth,
-    height: 600,
+    height: 615,
     marginTop: 60,
     paddingLeft: 0,
     transition: theme.transitions.create('width', {
@@ -31,7 +34,7 @@ const closedMixin = (theme) => ({
     overflowX: 'hidden',
     marginTop: 60,
     width: `calc(${theme.spacing(7)} + 1px)`,
-    height: 600,
+    height: 615,
     paddingLeft: 0,
     [theme.breakpoints.up('sm')]: {
       width: `calc(${theme.spacing(9)} + 1px)`,
@@ -51,7 +54,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     ({ theme, open }) => ({
         position: "relative",
         width: drawerWidth,
-        height: 600,
+        height: 615,
         flexShrink: 0,
         whiteSpace: 'nowrap',
         boxSizing: 'border-box',
@@ -72,7 +75,7 @@ const DrawerMenu = (props) => {
     const theme = useTheme();
 
     return (
-        <Drawer variant="permanent" open={ props.open } style={{ height: "600px"}}>
+        <Drawer variant="permanent" open={ props.open } style={{ height: "615px"}}>
             <DrawerHeader>
                 <IconButton onClick={ props.toggleDrawer }>
                     { props.open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
@@ -87,6 +90,14 @@ const DrawerMenu = (props) => {
                 { mainListItems }
                 <Divider sx={{ my: 1 }} />
                 { secondaryListItems }
+            </List>
+
+            <List component="nav" >
+                <ListItemButton>
+                    <ListItemIcon>
+                        <SettingsIcon />
+                    </ListItemIcon>
+                </ListItemButton>
             </List>
         </Drawer>
     )
