@@ -7,16 +7,13 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import SettingsIcon from '@mui/icons-material/Settings';
 import { mainListItems, secondaryListItems } from './DrawerMenuListItems';
 
 var drawerWidth = 240;
 
-const openedMixin = (theme) => ({
+const openedMixin = (theme, options) => ({
     width: drawerWidth,
-    height: 615,
+    height: options.height,
     marginTop: 60,
     paddingLeft: 0,
     transition: theme.transitions.create('width', {
@@ -26,18 +23,18 @@ const openedMixin = (theme) => ({
     overflowX: 'hidden',
   });
   
-const closedMixin = (theme) => ({
+const closedMixin = (theme, options) => ({
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: 'hidden',
     marginTop: 60,
-    width: `calc(${theme.spacing(7)} + 1px)`,
-    height: 615,
+    width: `calc(${theme.spacing(5)} + 1px)`,
+    height: options.height,
     paddingLeft: 0,
     [theme.breakpoints.up('sm')]: {
-      width: `calc(${theme.spacing(9)} + 1px)`,
+      width: `calc(${theme.spacing(7)} + 1px)`,
     },
 });
 
@@ -51,21 +48,21 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
+    ({ theme, open, options }) => ({
         position: "relative",
         width: drawerWidth,
-        height: 615,
+        height: options.height,
         flexShrink: 0,
         whiteSpace: 'nowrap',
         boxSizing: 'border-box',
         padding: theme.spacing(0, 1),
         ...(open && {
-            ...openedMixin(theme),
-            '& .MuiDrawer-paper': openedMixin(theme),
+            ...openedMixin(theme, options),
+            '& .MuiDrawer-paper': openedMixin(theme, options),
         }),
         ...(!open && {
-            ...closedMixin(theme),
-            '& .MuiDrawer-paper': closedMixin(theme),
+            ...closedMixin(theme, options),
+            '& .MuiDrawer-paper': closedMixin(theme, options),
         }),
     }),
 );
@@ -75,10 +72,10 @@ const DrawerMenu = (props) => {
     const theme = useTheme();
 
     return (
-        <Drawer variant="permanent" open={ props.open } style={{ height: "615px"}}>
+        <Drawer variant="permanent" open={ props.open } style={{ height: props.bodyHeight + 60 }} options={{ height: props.bodyHeight }}>
             <DrawerHeader>
                 <IconButton onClick={ props.toggleDrawer }>
-                    { props.open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                    { props.open ? <ChevronLeftIcon /> : <ChevronRightIcon /> }
                 </IconButton>
                 <Typography variant="h7" noWrap component="div" style={{ paddingLeft: 24}}>
                     Main Menu
@@ -90,14 +87,6 @@ const DrawerMenu = (props) => {
                 { mainListItems }
                 <Divider sx={{ my: 1 }} />
                 { secondaryListItems }
-            </List>
-
-            <List component="nav" >
-                <ListItemButton>
-                    <ListItemIcon>
-                        <SettingsIcon />
-                    </ListItemIcon>
-                </ListItemButton>
             </List>
         </Drawer>
     )

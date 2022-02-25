@@ -16,7 +16,7 @@ export default function Header (props) {
         // </div>
         <div>
             <HeaderMenu open={ props.drawerOpen } toggleDrawer={ props.toggleDrawer }/>
-            <DrawerMenu open={ props.drawerOpen } toggleDrawer={ props.toggleDrawer } width={ 350 }/>
+            <DrawerMenu open={ props.drawerOpen } toggleDrawer={ props.toggleDrawer } width={ 350 } { ...props } />
             {/* <TestDrawer /> */}
         </div>
     );

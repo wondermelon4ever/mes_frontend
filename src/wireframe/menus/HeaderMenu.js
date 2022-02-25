@@ -53,7 +53,7 @@ const Search = styled('div')(({ theme }) => ({
       transition: theme.transitions.create('width'),
       width: '100%',
       [theme.breakpoints.up('md')]: {
-        width: '20ch',
+        width: '30ch',
       },
     },
   }));
@@ -170,6 +170,12 @@ const PrimarySearchAppBar = (props) => {
       </Menu>
     );
 
+    const doSearch = (e) => {
+      if(e.which == 13) {
+        console.log("You pressed enter !");
+      }
+    }
+
     return (
       <Box sx={{ display: 'flex', flexGrow: 1 }}>
         <CssBaseline />
@@ -196,7 +202,7 @@ const PrimarySearchAppBar = (props) => {
               >
                 Logooooooooo
             </Typography>
-            <Search>
+            <Search onKeyPress={ doSearch }>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>

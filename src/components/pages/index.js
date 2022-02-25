@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from './home/Home';
 import Monitor from './monitoring/Monitor';
+import ThemeSelection from './settings/ThemeSelection';
 
 var inited = false;
 
@@ -25,15 +26,22 @@ const configureRoutes = (props) => {
         "presenter": <Monitor json="app3.json" size={ size } { ...props } />,
         "layout": "layout-1"
     };
+
+    var themeSelection = {
+        "key": "/themeSelection",
+        "presenter": <ThemeSelection { ...props } />,
+        "layout": "layout-1"
+    }
     
     routeList.push(home);
     routeList.push(monitor);
+    routeList.push(themeSelection);
 
     return routeList;
 }
 
 export {
     configureRoutes,
-    Home
-    
+    Home,
+    ThemeSelection
 }

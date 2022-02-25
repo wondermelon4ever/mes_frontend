@@ -12,7 +12,7 @@ const Body = (props) => {
         setDrawerOpen(props.drawerOpen);
     }, [props.drawerOpen]);
     
-    const marginLeft = drawerOpen ? 240 : 70;
+    const marginLeft = drawerOpen ? 240 : 56;
 
     return (
         <div style={{ marginLeft: marginLeft }}>
