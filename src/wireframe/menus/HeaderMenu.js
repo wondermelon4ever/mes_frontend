@@ -186,7 +186,7 @@ const PrimarySearchAppBar = (props) => {
               size="large"
               edge="start"
               color="inherit"
-              style={{ paddingLeft: "20px"}}
+              style={{ paddingLeft: "20px" }}
               onClick= { props.toggleDrawer }
             >
               <MenuIcon />

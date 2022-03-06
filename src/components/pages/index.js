@@ -1,7 +1,7 @@
 import React from 'react';
 import Home from './home/Home';
 import Monitor from './monitoring/Monitor';
-import ThemeSelection from './settings/ThemeSelection';
+import ThemeSelection from './commns/settings/ThemeSelection';
 
 var inited = false;
 

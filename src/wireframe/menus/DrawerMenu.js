@@ -16,6 +16,7 @@ const openedMixin = (theme, options) => ({
     height: options.height,
     marginTop: 60,
     paddingLeft: 0,
+    backgroundColor: theme.backgroundColor,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -33,6 +34,7 @@ const closedMixin = (theme, options) => ({
     width: `calc(${theme.spacing(5)} + 1px)`,
     height: options.height,
     paddingLeft: 0,
+    backgroundColor: theme.backgroundColor,
     [theme.breakpoints.up('sm')]: {
       width: `calc(${theme.spacing(7)} + 1px)`,
     },
@@ -56,6 +58,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
         whiteSpace: 'nowrap',
         boxSizing: 'border-box',
         padding: theme.spacing(0, 1),
+        backgroundColor: theme.backgroundColor,
         ...(open && {
             ...openedMixin(theme, options),
             '& .MuiDrawer-paper': openedMixin(theme, options),

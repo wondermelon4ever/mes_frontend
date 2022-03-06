@@ -8,8 +8,9 @@ import ListItemButton from '@mui/material/ListItemButton';
 const BottomContextMenu = styled('div')(({ theme, options }) => ({
     display: options.show?"block":"none",
     position: "fixed",
-    zIndex: 1001,
-    left: options.left,
+    zIndex: 1000001,
+    width: 240,
+    right: options.right,
     bottom: options.bottom,
     float: "left",
     border: "2px",
@@ -34,16 +35,29 @@ const BottomMenu = (props) => {
     }
 
     return(
-        <BottomContextMenu onClick={ menuClicked } options={{ show: props.show, left: props.left, bottom: props.bottom }}>
+        <BottomContextMenu 
+            onClick={ menuClicked } 
+            options={{ show: props.show, right: props.right, bottom: props.bottom }}
+            onMouseOut={ menuClicked }
+        >
             <List component="nav">
                 <ListItemButton component={RouterLink} to="/themeSelection">
-                    Change Theme
+                    Change theme
+                </ListItemButton>
+                <ListItemButton component={RouterLink} to="/themeSelection">
+                    Manage theme
                 </ListItemButton>
             </List>
             <Divider />
             <List component="nav">
                 <ListItemButton component={RouterLink} to="/monitoring">
                     Monitoring
+                </ListItemButton>
+            </List>
+            <Divider />
+            <List component="nav">
+                <ListItemButton component={RouterLink} to="/monitoring">
+                    Set message filtering
                 </ListItemButton>
             </List>
         </BottomContextMenu>

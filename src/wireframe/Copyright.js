@@ -8,7 +8,7 @@ const Copyright = (props) => {
 
     return(
         <div style={{ padding: 10 }}>
-            <Typography varient="body2" color="black" align="center">
+            <Typography style={{ fontSize: 14 }} color="black" align="center">
                 { 'Copyright @' }
                 <Link color="inherit" href="">
                     Samsung SDS
