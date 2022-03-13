@@ -2,6 +2,7 @@ import React from 'react';
 import Home from './home/Home';
 import Monitor from './monitoring/Monitor';
 import ThemeSelection from './commns/settings/ThemeSelection';
+import WorkOrder from './workorders/WorkOrder';
 
 var inited = false;
 
@@ -32,10 +33,17 @@ const configureRoutes = (props) => {
         "presenter": <ThemeSelection { ...props } />,
         "layout": "layout-1"
     }
+
+    var workOrder = {
+        "key": "/workorder",
+        "presenter": <WorkOrder {...props}/>,
+        "layout": "layout-1"
+    }
     
     routeList.push(home);
     routeList.push(monitor);
     routeList.push(themeSelection);
+    routeList.push(workOrder);
 
     return routeList;
 }

@@ -52,7 +52,7 @@ export const secondaryListItems = (
     <ListSubheader component="div" inset>
       Saved reports
     </ListSubheader>
-    <ListItemButton>
+    <ListItemButton component={RouterLink} to="/workOrder">
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
