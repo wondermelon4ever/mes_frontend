@@ -1,13 +1,20 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
-import MuiDrawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
+
+import { 
+    styled, 
+    useTheme 
+} from '@mui/material/styles';
+
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
+import MuiDrawer from '@mui/material/Drawer';
 import Typography from '@mui/material/Typography';
+
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { mainListItems, secondaryListItems } from './DrawerMenuListItems';
+
+import DrawerMenuList from './DrawerMenuList';
+import DrawerSubMenuList from './DrawerSubMenuList';
 
 var drawerWidth = 240;
 
@@ -73,6 +80,14 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const DrawerMenu = (props) => {
 
     const theme = useTheme();
+    const [menuName, setMenuName] = React.useState("Main Menu");
+    const [selectedMenuNum, setSelectedMenuNum] = React.useState(0);
+
+    const changeMenuSelection = (menuName, num) => {
+        setMenuName(menuName);
+        setSelectedMenuNum(num);
+        if(props.open == false) props.toggleDrawer();
+    }
 
     return (
         <Drawer variant="permanent" open={ props.open } style={{ height: props.bodyHeight + 60 }} options={{ height: props.bodyHeight }}>
@@ -81,16 +96,29 @@ const DrawerMenu = (props) => {
                     { props.open ? <ChevronLeftIcon /> : <ChevronRightIcon /> }
                 </IconButton>
                 <Typography variant="h7" noWrap component="div" style={{ paddingLeft: 24}}>
-                    Main Menu
+                    { menuName }
                 </Typography>
             </DrawerHeader>
             <Divider />
-            <List component="nav">
+            {/* <List component="nav"> */}
                 {/* for loop 돌리면서 아이콘에 toggle을 위한 onclick 이벤트를 넣어줌 */}
-                { mainListItems }
-                <Divider sx={{ my: 1 }} />
-                { secondaryListItems }
-            </List>
+                {/* { mainListItems } */}
+                {/* <Divider sx={{ my: 1 }} /> */}
+                {/* { secondaryListItems } */}
+            {/* </List> */}
+            <div style={{ display: "flex", height: "100%" }}>
+                <div style={{  width: 56, height: "100%", borderRight: props.open ? "1px solid #d3d3d3" : "0px" }}>
+                    {/* <List component="nav"> */}
+                        <DrawerMenuList menuChangeListener={ changeMenuSelection }/>
+                        {/* { 
+                            makeDrawerMenus(changeMenuSelection)
+                        } */}
+                    {/* </List> */}
+                </div>
+                <div style={{ backgroundColor: "white", width: (240-56), height: "100%" }}>
+                    <DrawerSubMenuList selectMenuNum={ selectedMenuNum } />
+                </div>
+            </div>
         </Drawer>
     )
 }
