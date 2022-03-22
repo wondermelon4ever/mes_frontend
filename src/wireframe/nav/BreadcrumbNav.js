@@ -9,8 +9,16 @@ import {
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import useBreadcrumbs from 'use-react-router-breadcrumbs';
 
+const routes = [
+    // { path: '/users/:userId', breadcrumb: DynamicUserBreadcrumb },
+    { path: '/', breadcrumb: '홈' },
+    { path: '/monitoring', breadcrumb: '모니터링' },
+    { path: '/workOrder', breadcrumb: '워크오더' } 
+]
+
 const BreadcrumbNav = (props) => {
-    const crumbs = useBreadcrumbs();
+    
+    const crumbs = useBreadcrumbs(routes);
     const breadcrumbs = [];
 
     crumbs.map(({
@@ -19,7 +27,7 @@ const BreadcrumbNav = (props) => {
     }, index) => {
         breadcrumbs.push(
             (index + 1 === crumbs.length) ? (
-                <Typography color='text.secondary' fontSize='13px'>
+                <Typography key={ index } color='text.secondary' fontSize='13px'>
                     { breadcrumb }
                 </Typography>
             ) : (

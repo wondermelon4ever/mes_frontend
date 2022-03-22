@@ -14,6 +14,7 @@ const configureRoutes = (props) => {
     var home = {
         "key": "/",
         "presenter": <Home { ...props } />,
+        "breadcrumb": "홈",
         "layout": "layout-1"
     };
 
@@ -25,18 +26,21 @@ const configureRoutes = (props) => {
     var monitor = {
         "key": "/monitoring",
         "presenter": <Monitor json="app3.json" size={ size } { ...props } />,
+        "breadcrumb": "모니터링",
         "layout": "layout-1"
     };
 
     var themeSelection = {
         "key": "/themeSelection",
         "presenter": <ThemeSelection { ...props } />,
+        "breadcrumb": "테마선택",
         "layout": "layout-1"
     }
 
     var workOrder = {
         "key": "/workorder",
         "presenter": <WorkOrder {...props}/>,
+        "breadcrumb": "워크오더",
         "layout": "layout-1"
     }
     
