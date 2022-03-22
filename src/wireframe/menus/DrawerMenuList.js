@@ -85,7 +85,7 @@ const DrawerMenuList = (props) => {
         <React.Fragment>
             <StyledTooltip title="기준정보" arrow="true" placement="right">
                 <ListItemButton 
-                    component={RouterLink} to="/monitoring" 
+                    // component={RouterLink} to="/monitoring" 
                     style={{ backgroundColor: menuSelected0 ? "#d3d3d3": "white"}}
                     onClick={ () => menuSelectionChanged("기준정보", 0) }
                 >
@@ -148,7 +148,7 @@ const DrawerMenuList = (props) => {
 
             <StyledTooltip title="품질관리" arrow="true" placement="right">
                 <ListItemButton 
-                    component={RouterLink} to="/workOrder" 
+                    // component={RouterLink} to="/workOrder" 
                     style={{ backgroundColor: menuSelected5 ? "#d3d3d3": "white"}}
                     onClick={ () => menuSelectionChanged("품질관리", 5) }
                 >

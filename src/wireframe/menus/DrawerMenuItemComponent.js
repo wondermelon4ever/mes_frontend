@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link, LinkProps, NavLink, NavLinkProps } from 'react-router-dom'
+import { Link as RouterLink, NavLink } from 'react-router-dom'
 
 import ListItem from '@mui/material/ListItem'
 import { useTheme } from '@mui/material/styles';
 
 
-const DrawMenuItemComponent  = (props) => {
+const DrawerMenuItemComponent  = (props) => {
     const theme = useTheme();
     const { className, onClick, link, state, children } = props
 
@@ -27,13 +27,14 @@ const DrawMenuItemComponent  = (props) => {
             button
             className={className}
             children={children}
-            component={forwardRef((props, ref) => <NavLink exact {...props} innerRef={ref} />)}
+            // component={forwardRef((props, ref) => <NavLink exact {...props} innerRef={ref} />)}
             // component={forwardRef((props: NavLinkProps, ref: any) => <NavLink to={{ pathname: '', state: {state}}} />)}
-            to={{ pathname: link, state: state}}
+            component={ RouterLink }
+            // to={{ pathname: link, state: state}}
             autoFocus={true}
-            // to={link}
+            to={link}
         />
     )
 }
 
-export default DrawMenuItemComponent;
+export default DrawerMenuItemComponent;

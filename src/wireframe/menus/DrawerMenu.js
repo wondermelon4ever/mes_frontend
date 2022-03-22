@@ -116,7 +116,7 @@ const DrawerMenu = (props) => {
                     {/* </List> */}
                 </div>
                 <div style={{ backgroundColor: "white", width: (240-56), height: "100%" }}>
-                    <DrawerSubMenuList selectMenuNum={ selectedMenuNum } />
+                    <DrawerSubMenuList selectedMenuNum={ selectedMenuNum } />
                 </div>
             </div>
         </Drawer>

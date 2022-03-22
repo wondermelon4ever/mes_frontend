@@ -20,12 +20,14 @@ class BodyRouter extends React.Component {
                 <Routes>
                     {
                         this.state.presenterMap.map((route)=>{
-                            return <Route
-                                        key={ route.key }
-                                        path={ route.key }
-                                        element={ <BodyRouteWrapper path={ route.key } presenter={ route.presenter } layout={ route.layout } { ...this.props }/> }
-                                        { ...this.props }
-                                    />
+                            return (
+                                <Route
+                                    key={ route.key }
+                                    path={ route.key }
+                                    element={ <BodyRouteWrapper path={ route.key } presenter={ route.presenter } layout={ route.layout } { ...this.props }/> }
+                                    { ...this.props }
+                                />
+                            )
                         })
                     }
                 </Routes>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { render } from 'react-dom';
 
 import { useTheme } from '@mui/material/styles';
 import List from '@mui/material/List';
@@ -6,27 +7,17 @@ import List from '@mui/material/List';
 import {
     createSubMenuGroupList
  } from './DrawerSubMenuListHelper';
-
-function createSubMenuList(subMenuItems, open) {
-    return(
-        <List component="nav">
-            {
-                subMenuItems.map((item, index)=>{
-
-                })
-            }
-        </List>
-    );
-}
-
-var subMenuGroupList = undefined;
+import DrawerSubMenuItem from './DrawerSubMenuItem';
 
 const DrawerSubMenuList = (props) => {
     const theme = useTheme();
     const [open, setOpen] = React.useState([]);
+    const [subMenuGroupList, setSubMenuGroupList] = React.useState(createSubMenuGroupList());
+    const [selectedMenuNum, setSelectedMenuNum] = React.useState(props.selectedMenuNum);
 
     React.useEffect(()=>{
         applyMenuSelection(props.selectedMenuNum);
+        setSelectedMenuNum(props.selectedMenuNum);
     }, [props.selectedMenuNum]);
 
     const applyMenuSelection = (selectedMenuNum) => {
@@ -39,18 +30,30 @@ const DrawerSubMenuList = (props) => {
         setOpen(temp);
     }
 
-    if(subMenuGroupList === undefined) {
-        subMenuGroupList = createSubMenuGroupList();
-        applyMenuSelection(props.selectedMenuNum);
+    if(subMenuGroupList.length === 0) {
+        setSubMenuGroupList(createSubMenuGroupList());
     }
 
     return(
         <div>
+            <List component="nav">
             {
-                subMenuGroupList.map((subMenuItems, index) => {
-                    createSubMenuList(subMenuItems, open[index]);
+                subMenuGroupList[selectedMenuNum].map((item, index) => {
+                    return (
+                        <DrawerSubMenuItem 
+                            key  ={ index }
+                            type ={ item.type }
+                            name ={ item.name }
+                            link ={ item.link }
+                            Icon ={ item.Icon }
+                            items={ item.items }
+                            state={ item.state }
+                            open ={ open }
+                        />
+                    )
                 })
             }
+            </List>
         </div>
     );
 }

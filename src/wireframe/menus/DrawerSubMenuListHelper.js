@@ -1,3 +1,5 @@
+import React from 'react';
+import AssignmentIcon from '@mui/icons-material/Assessment';
 
 var subMenuItemsGroupList = [];
 
@@ -6,12 +8,13 @@ const baseInfoSubMenuItems = [
         type: "ListItem",
         name: '코드관리',
         state: { viewId: 'bodyMainView' },
-        Icon: undefined, 
+        Icon: AssignmentIcon, 
         items: [
             {
                 type: "ListItem",
-                 name: '공통코드',
-                 state: { leftMenuKey: "examplesLeftMenu", fromTemplate: true, selectedName: 'Counter' },
+                name: '공통코드',
+                link: "/",
+                state: { leftMenuKey: "examplesLeftMenu", fromTemplate: true, selectedName: 'Counter' },
                },
             {
                 type: "ListItem",
@@ -24,25 +27,29 @@ const baseInfoSubMenuItems = [
         type: "ListItem",
         name: '공정관리',
         state: { viewId: 'bodyMainView' },
-        Icon: undefined, 
+        Icon: AssignmentIcon, 
+    },
+    {
+        type: "Divider",
+        name: ""
     },
     {
         type: "ListItem",
         name: 'BOM관리',
         state: { viewId: 'bodyMainView' },
-        Icon: undefined, 
+        Icon: AssignmentIcon, 
     },
     {
         type: "ListItem",
         name: '설비관리',
         state: { viewId: 'bodyMainView' },
-        Icon: undefined, 
+        Icon: AssignmentIcon, 
     },
     {
         type: "ListItem",
         name: '라벨관리',
         state: { viewId: 'bodyMainView' },
-        Icon: undefined, 
+        Icon: AssignmentIcon, 
     },
 
 ]
@@ -52,7 +59,7 @@ const materialsSubMenuItems = [
         type: "ListItem",
         name: '자재입출고',
         state: { viewId: 'bodyMainView' },
-        Icon: undefined, 
+        Icon: AssignmentIcon, 
         items: [
             {
                 type: "ListItem",
@@ -93,7 +100,7 @@ const materialsSubMenuItems = [
         type: "ListItem",
         name: '불량관리',
         state: { viewId: 'bodyMainView' },
-        Icon: undefined, 
+        Icon: AssignmentIcon, 
     },
 ]
 
@@ -102,13 +109,13 @@ const equipmentSubMenuItems = [
         type: "ListItem",
         name: '설비관리',
         state: { viewId: 'bodyMainView' },
-        Icon: undefined, 
+        Icon: AssignmentIcon, 
     },
     {
         type: "ListItem",
         name: '금형관리',
         state: { viewId: 'bodyMainView' },
-        Icon: undefined, 
+        Icon: AssignmentIcon, 
     },
 ]
 
@@ -117,12 +124,13 @@ const manufacturingSubMenuItems = [
         type: "ListItem",
         name: '생산계획',
         state: { viewId: 'bodyMainView' },
-        Icon: undefined, 
+        Icon: AssignmentIcon, 
         items: [
             {
                 type: "ListItem",
-                 name: '작업지시',
-                 state: { leftMenuKey: "examplesLeftMenu", fromTemplate: true, selectedName: 'Counter' },
+                name: '작업지시',
+                link: "/workOrder",
+                state: { leftMenuKey: "examplesLeftMenu", fromTemplate: true, selectedName: 'Counter' },
                },
             {
                 type: "ListItem",
@@ -135,12 +143,12 @@ const manufacturingSubMenuItems = [
         type: "ListItem",
         name: '생산관리',
         state: { viewId: 'bodyMainView' },
-        Icon: undefined, 
+        Icon: AssignmentIcon, 
         items: [
             {
                 type: "ListItem",
-                 name: '생산현황',
-                 state: { leftMenuKey: "examplesLeftMenu", fromTemplate: true, selectedName: 'Counter' },
+                name: '생산현황',
+                state: { leftMenuKey: "examplesLeftMenu", fromTemplate: true, selectedName: 'Counter' },
                },
             {
                 type: "ListItem",
@@ -156,19 +164,19 @@ const logisticsSubMenuItems = [
         type: "ListItem",
         name: '대차입고',
         state: { viewId: 'bodyMainView' },
-        Icon: undefined, 
+        Icon: AssignmentIcon, 
     },
     {
         type: "ListItem",
         name: '대차출고',
         state: { viewId: 'bodyMainView' },
-        Icon: undefined, 
+        Icon: AssignmentIcon, 
     },
     {
         type: "ListItem",
         name: '출하관리',
         state: { viewId: 'bodyMainView' },
-        Icon: undefined, 
+        Icon: AssignmentIcon, 
     },
 ]
 
@@ -177,7 +185,7 @@ const qualitySubMenuItems = [
         type: "ListItem",
         name: '홀딩현황',
         state: { viewId: 'bodyMainView' },
-        Icon: undefined, 
+        Icon: AssignmentIcon, 
     },
 ]
 
@@ -186,25 +194,25 @@ const dashboardSubMenuItems = [
         type: "ListItem",
         name: '종합현황',
         state: { viewId: 'bodyMainView' },
-        Icon: undefined, 
+        Icon: AssignmentIcon, 
     },
     {
         type: "ListItem",
         name: '생산현황',
         state: { viewId: 'bodyMainView' },
-        Icon: undefined, 
+        Icon: AssignmentIcon, 
     },
     {
         type: "ListItem",
         name: '출하현황',
         state: { viewId: 'bodyMainView' },
-        Icon: undefined, 
+        Icon: AssignmentIcon, 
     },
     {
         type: "ListItem",
         name: '창고현황',
         state: { viewId: 'bodyMainView' },
-        Icon: undefined, 
+        Icon: AssignmentIcon, 
     },
 ]
 
@@ -213,7 +221,8 @@ const monitoringSubMenuItems = [
         type: "ListItem",
         name: '실시간 모니터링',
         state: { viewId: 'bodyMainView' },
-        Icon: undefined, 
+        link: "/monitoring",
+        Icon: AssignmentIcon, 
     },
 ]
 
@@ -222,7 +231,7 @@ const reportSubMenuItems = [
         type: "ListItem",
         name: '정기보고서',
         state: { viewId: 'bodyMainView' },
-        Icon: undefined, 
+        Icon: AssignmentIcon, 
     },
 ]
 

@@ -1,8 +1,7 @@
 import React from 'react';
-import Pane from 'react-split-pane';
-import SplitPane from 'react-split-pane';
 
 import BodyRouter from './routes/BodyRouter';
+import BreadcrumbNav from './nav/BreadcrumbNav';
 
 const Body = (props) => {
 
@@ -16,6 +15,7 @@ const Body = (props) => {
 
     return (
         <div style={{ marginLeft: marginLeft }}>
+            <BreadcrumbNav />
             <BodyRouter { ...props } />
         </div>
     );
