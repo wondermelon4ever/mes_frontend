@@ -17,6 +17,7 @@ import SplitPane from 'react-split-pane';
 
 import Copyright from './Copyright';
 import BottomMenu from './menus/BottonMenu';
+import Bookmark from './menus/Bookmark';
 
 import SlidingInformControl from '../components/pages/commns/informing/SlidingInformControl';
 
@@ -86,7 +87,11 @@ const Footer = (props) => {
                             <ShareIcon />
                         </IconButton>
                     </Tooltip> */}
+                    <Bookmark />
                 </Box>
+                {/* <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                    <Bookmark />
+                </Box> */}
             </div>
             <div style={ styles.footerCopy }>
                 <div>

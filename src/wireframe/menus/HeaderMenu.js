@@ -19,6 +19,8 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
 
+import Bookmark from './Bookmark';
+
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -212,6 +214,9 @@ const PrimarySearchAppBar = (props) => {
                   inputProps={{ 'aria-label': 'search' }}
                 />
               </Search>
+            </Box>
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <Bookmark />
             </Box>
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>

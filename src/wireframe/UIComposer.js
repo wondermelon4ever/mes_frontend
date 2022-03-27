@@ -14,12 +14,16 @@ const UIComposer = (props) => {
     const [drawerOpen, setDrawerOpen] = React.useState(false);
     const [headerHeight, setHeaderHeight] = React.useState(60);
     const [footerHeight, setFooterHeight] = React.useState(45);
-    const [bodyHeight, setBodyHeight] = React.useState(theight-headerHeight-footerHeight-2);
+    const [bodyHeight, setBodyHeight] = React.useState(theight-headerHeight-footerHeight-3);
+    const [width, setWidth] = React.useState(document.documentElement.clientWidth-3);
 
     React.useEffect(()=>{
         window.addEventListener("resize", (e)=>{
             theight = document.documentElement.clientHeight;
-            setBodyHeight(theight-headerHeight-footerHeight-2);
+            setBodyHeight(theight-headerHeight-footerHeight-3);
+
+            var cwidth = document.documentElement.clientWidth-3;
+            setWidth(cwidth-3);
         });
     }, [])
     
@@ -31,7 +35,7 @@ const UIComposer = (props) => {
         <div style={{ height: "100%", width: "100%"}}>
             <BrowserRouter>
                 <ThemeProvider theme={ props.curThemeInfo.theme }>
-                    <SplitPane split="horizontal" allowResize={true}>
+                    <SplitPane split="horizontal" allowResize={true} style={{ height: "100%", width: width }}>
                         <Pane size={ headerHeight+"px" } minSize="0px" maxSize={ headerHeight+"px" }>
                             <Header drawerOpen={ drawerOpen } toggleDrawer={ toggleDrawer } bodyHeight={ bodyHeight } { ...props } />
                         </Pane>
