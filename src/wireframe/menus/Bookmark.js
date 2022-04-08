@@ -1,22 +1,12 @@
 import React from 'react';
 import Autocomplete, { createFilterOptions }from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { styled, alpha, useTheme } from '@mui/material/styles';
-import { style } from '@mui/system';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-
-const styles = {
-    root: {
-        background: "black"
-    },
-    input: {
-        color: "#d3d3d3",
-        border: "none"
-    }
-}
+import Tooltip from '@mui/material/Tooltip';
+import BookmarkAdd from './BookmarkAdd';
 
 const StyledTextField = styled(TextField)`
   /* default */
@@ -31,6 +21,18 @@ const StyledTextField = styled(TextField)`
   .MuiInput-underline:after {
     border-bottom: none; /* 1px solid white; */
   }
+  .MuiInput-input {
+    color: #FFFFFF
+  }
+`;
+
+const StyledAutocomplete = styled(Autocomplete)`
+  .MuiAutocomplete-clearIndicator {
+    color: #FFFFFF
+  }
+  .MuiAutocomplete-popupIndicator {
+    color: #FFFFFF
+  }+
 `;
 
 const filter = createFilterOptions();
@@ -38,10 +40,19 @@ const filter = createFilterOptions();
 const Bookmark = (props) => {
 
     const theme = useTheme();
+    const [openAddBookmark, setOpenAddBookmark] = React.useState(false);
+
+    const openAddBookmarkDialog = () => {
+      setOpenAddBookmark(true);
+    }
+
+    const handleAddBookmark = () => {
+      setOpenAddBookmark(false);
+    }
 
     return(
         <div style={{ display: "flex" }}>
-        <Autocomplete
+        <StyledAutocomplete
             disablePortal
             id="head-autocomplete-bookmark"
             options={top100Films}
@@ -90,7 +101,7 @@ const Bookmark = (props) => {
                 (params) => <StyledTextField {...params} 
                                 label="Select bookmark" 
                                 style={{ position: 'relative', width: "300px", borderBottom: "none" }}
-                                InputLabelProps={{ style : { color : 'white' } }}
+                                InputLabelProps={{ style : { color : '#DFDFDF' } }}
                                 // sx={{ color: 'white', border: "none" }}
                                 size="small"
                                 variant="standard"
@@ -98,8 +109,11 @@ const Bookmark = (props) => {
             }
         />
         <Box sx={{ position: "absolute", top: "25px", left: "900px" }}>
-            <AddCircleIcon />
+          <Tooltip title="Add new bookmark" placement="bottom">
+            <AddCircleIcon onClick={ openAddBookmarkDialog }/>
+          </Tooltip>
         </Box>
+        <BookmarkAdd open={ openAddBookmark } updateDialogStateClose={ handleAddBookmark }/>
         </div>
     );
 }

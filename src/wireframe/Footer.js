@@ -40,12 +40,12 @@ const Footer = (props) => {
             padding: '0px'
         },
         footerCopy: {
-            float: 'left',
+            // float: 'left',
             color: '#333',
-            fontSize: '12px',
+            fontSize: '10px',
             width: "50%",
-            // display: "flex",
-            // textAlign: 'center',
+            display: "flex",
+            textAlign: 'left',
         },
         footerLogo: {
             float: 'right',
@@ -70,7 +70,7 @@ const Footer = (props) => {
 
     return(
         <div style={ styles.footer }>
-            <div style={{ width: "25%", marginLeft: 5 }}>
+            {/* <div style={{ width: "25%", marginLeft: 5 }}>
                 <Box style={{ padding: 2 }}>
                     <Tooltip title="Help" placement="top">
                         <IconButton onClick={ toggleBottomMenuShow }>
@@ -82,24 +82,16 @@ const Footer = (props) => {
                             <InfoIcon />
                         </IconButton>
                     </Tooltip>
-                    {/* <Tooltip title="Share" placement="top">
-                        <IconButton onClick={ toggleBottomMenuShow }>
-                            <ShareIcon />
-                        </IconButton>
-                    </Tooltip> */}
-                    <Bookmark />
+                    
                 </Box>
-                {/* <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                    <Bookmark />
-                </Box> */}
-            </div>
+            </div> */}
             <div style={ styles.footerCopy }>
                 <div>
                     <Copyright style={{ padding: 2 }} />
                 </div>
             </div>
-            <div style={{ width: "25%", textAlign: 'right' }}>
-                <Box style={{ padding: 2 }}>
+            <div style={{ width: "50%", textAlign: 'right' }}>
+                <Box style={{ padding: 2, paddingTop: 0 }}>
                     <Tooltip title="Link" placement="top">
                         <IconButton onClick={ toggleBottomMenuShow }>
                             <LinkIcon />
@@ -110,6 +102,11 @@ const Footer = (props) => {
                             <FilterAltIcon />
                         </IconButton>
                     </Tooltip> */}
+                    <Tooltip title="Share" placement="top">
+                        <IconButton onClick={ toggleBottomMenuShow }>
+                            <ShareIcon />
+                        </IconButton>
+                    </Tooltip>
                     <Tooltip title="Messanger" placement="top">
                         <IconButton onClick={ toggleBottomMenuShow }>
                             <ChatIcon />
@@ -131,7 +128,7 @@ const Footer = (props) => {
                 show={ bottomMenuShow } 
                 toggleBottomMenuShow={ toggleBottomMenuShow } 
                 right={ 0 } 
-                bottom={ 45 }
+                bottom={ 37 }
             />
             <SlidingInformControl inform={inform} />
         </div>

@@ -13,7 +13,7 @@ const UIComposer = (props) => {
     var theight = document.documentElement.clientHeight;
     const [drawerOpen, setDrawerOpen] = React.useState(false);
     const [headerHeight, setHeaderHeight] = React.useState(60);
-    const [footerHeight, setFooterHeight] = React.useState(45);
+    const [footerHeight, setFooterHeight] = React.useState(37);
     const [bodyHeight, setBodyHeight] = React.useState(theight-headerHeight-footerHeight-3);
     const [width, setWidth] = React.useState(document.documentElement.clientWidth-3);
 

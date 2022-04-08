@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
+import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
@@ -18,6 +18,10 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import HelpIcon from '@mui/icons-material/Help';
+import InfoIcon from '@mui/icons-material/Info';
 
 import Bookmark from './Bookmark';
 
@@ -219,7 +223,41 @@ const PrimarySearchAppBar = (props) => {
               <Bookmark />
             </Box>
             <Box sx={{ flexGrow: 1 }} />
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <Box 
+              sx={{
+                // display: "flex", 
+                display: { xs: 'none', md: 'flex' } ,
+                // border: (theme) => `1px solid ${theme.palette.divider}`,
+              }}>
+              <Tooltip title="Help" placement="bottom">
+                <IconButton
+                   size="large"
+                   edge="end"
+                   aria-label="account of current user"
+                   aria-controls={menuId}
+                   aria-haspopup="true"
+                   onClick={handleProfileMenuOpen}
+                   color="inherit"
+                >
+                  <HelpIcon />
+                </IconButton>
+              </Tooltip>
+              &nbsp;
+              <Tooltip title="About" placement="bottom">
+                <IconButton
+                   size="large"
+                   edge="end"
+                   aria-label="account of current user"
+                   aria-controls={menuId}
+                   aria-haspopup="true"
+                   onClick={handleProfileMenuOpen}
+                   color="inherit"
+                >
+                  <InfoIcon />
+                </IconButton>
+              </Tooltip>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              {/* <Divider orientation="vertical" flexItem /> */}
               <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                 <Badge badgeContent={4} color="error">
                   <MailIcon />
